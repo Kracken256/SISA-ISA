@@ -1,0 +1,23 @@
+{
+    "files.associations": {
+        "*.embeddedhtml": "html",
+        "*.q": "plaintext",
+        "*.txt": "cmake",
+        "*.qh": "csharp",
+        "*.mdx": "markdown",
+        "lib.h": "c",
+        "sisa8.h": "c",
+        "stdint.h": "c",
+        "sisa.h": "c",
+        "string.h": "c",
+        "sisa16.h": "c",
+        "ranges": "c",
+        "sisa32.h": "c",
+        "array": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "utility": "c",
+        "stdlib.h": "c",
+        "stdio.h": "c"
+    }
+}
