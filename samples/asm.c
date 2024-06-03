@@ -182,6 +182,15 @@ int main(int argc, char **argv) {
   }
 
   while (fgets(line, sizeof(line), f)) {
+    if (line[0] == '\0') {
+      continue;
+    }
+    if (line[0] == ';') {
+      continue;
+    }
+    if (line[0] == '\n') {
+      continue;
+    }
     if (!parse_line(line, &inst)) {
       fprintf(stderr, "Failed to parse line %zu\n", row);
       return 1;

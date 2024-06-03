@@ -61,16 +61,24 @@ void sisa64_exec(sisa64_cpu_t *m, sisa_inst_t inst) {
       m->reg[SISA_PC] += m->reg[inst.reg0] + inst.imm;
       break;
     case SISA_LDB:
+      if (m->reg[reg1] >= m->mem.size) {
+        m->halted = 1;
+        return;
+      }
       m->reg[inst.reg0] = m->mem.base[m->reg[reg1]];
       break;
     case SISA_STB:
+      if (m->reg[inst.reg0] >= m->mem.size) {
+        m->halted = 1;
+        return;
+      }
       m->mem.base[m->reg[inst.reg0]] = m->reg[reg1];
       break;
     case SISA_MOV:
       m->reg[inst.reg0] = inst.imm;
       break;
     case SISA_SYS:
-      m->tab[inst.reg0](m);
+      m->tab[m->reg[inst.reg0]](m);
       break;
     default:
       // Unknown instruction
