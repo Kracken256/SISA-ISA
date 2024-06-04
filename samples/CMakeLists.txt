@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.0)
-project(SISA C)
+project(SISA C CXX)
 
-set(CMAKE_C_STANDARD 99)
-set(CMAKE_C_STANDARD_REQUIRED ON)
-set(CMAKE_C_EXTENSIONS OFF)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-file(GLOB_RECURSE SOURCES "*.c")
+file(GLOB_RECURSE SOURCES "*.cc" "*.c")
 
 foreach(SOURCE ${SOURCES})
     get_filename_component(NAME ${SOURCE} NAME_WE)

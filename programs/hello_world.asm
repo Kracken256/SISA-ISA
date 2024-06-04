@@ -1,84 +1,82 @@
 ; Wesley's Hello World in a Custom CPU Assembly Language
 
-mov r1, 0xd0
-mov r3, 1
+add r7, r0, 0x90
 
-; Write 'H'
-mov r2, 0x48
-stb r1, r2
-add r1, r3
+; store 'H'
+add r8, r0, 0x48
+stb r8, r7, 0
 
-; Write 'e'
-mov r2, 0x65
-stb r1, r2
-add r1, r3
+; store 'e'
+xor r8, r8
+add r8, r0, 0x65
+stb r8, r7, 1
 
-; Write 'l'
-mov r2, 0x6c
-stb r1, r2
-add r1, r3
+; store 'l'
+xor r8, r8
+add r8, r0, 0x6c
+stb r8, r7, 2
 
-; Write 'l'
-mov r2, 0x6c
-stb r1, r2
-add r1, r3
+; store 'l'
+xor r8, r8
+add r8, r0, 0x6c
+stb r8, r7, 3
 
-; Write 'o'
-mov r2, 0x6f
-stb r1, r2
-add r1, r3
+; store 'o'
+xor r8, r8
+add r8, r0, 0x6f
+stb r8, r7, 4
 
-; Write ','
-mov r2, 0x2c
-stb r1, r2
-add r1, r3
+; store ','
+xor r8, r8
+add r8, r0, 0x2c
+stb r8, r7, 5
 
-; Write ' '
-mov r2, 0x20
-stb r1, r2
-add r1, r3
+; store ' '
+xor r8, r8
+add r8, r0, 0x20
+stb r8, r7, 6
 
-; Write 'W'
-mov r2, 0x57
-stb r1, r2
-add r1, r3
+; store 'W'
+xor r8, r8
+add r8, r0, 0x57
+stb r8, r7, 7
 
-; Write 'o'
-mov r2, 0x6f
-stb r1, r2
-add r1, r3
+; store 'o'
+xor r8, r8
+add r8, r0, 0x6f
+stb r8, r7, 8
 
-; Write 'r'
-mov r2, 0x72
-stb r1, r2
-add r1, r3
+; store 'r'
+xor r8, r8
+add r8, r0, 0x72
+stb r8, r7, 9
 
-; Write 'l'
-mov r2, 0x6c
-stb r1, r2
-add r1, r3
+; store 'l'
+xor r8, r8
+add r8, r0, 0x6c
+stb r8, r7, 10
 
-; Write 'd'
-mov r2, 0x64
-stb r1, r2
-add r1, r3
+; store 'd'
+xor r8, r8
+add r8, r0, 0x64
+stb r8, r7, 11
 
-; Write '!'
-mov r2, 0x21
-stb r1, r2
-add r1, r3
+; store '!'
+xor r8, r8
+add r8, r0, 0x21
+stb r8, r7, 12
 
-; Write '\n'
-mov r2, 0x0a
-stb r1, r2
-add r1, r3
+; store '\n'
+xor r8, r8
+add r8, r0, 0x0a
+stb r8, r7, 13
 
-; Write system call
-mov r1, 0xd0
-mov r2, 14
-mov r3, 1
-sys r3, 0
+; store '\0'
+xor r8, r8
+add r8, r0, 0x00
+stb r8, r7, 14
 
-; Exit system call
-mov r3, 0x20
-sys r3, 0
+; syscall 1
+add r1, r0, 0x90
+add r2, r0, 15
+sys r0, r0, 1

@@ -13,6 +13,7 @@ extern "C" {
 #endif
 
 #include <sisa/sisa.h>
+#include <stdbool.h>
 #include <stdint.h>
 
 struct sisa8_cpu_t;
@@ -23,12 +24,10 @@ typedef struct sisa8_cpu_t {
   sisa_mem_t mem;
   uint8_t reg[SISA_NUMREGS];
   sisa8_syscall_t tab[SISA_SYS_MAX];
-  uint8_t halted;
+  bool halted;
 } sisa8_cpu_t;
 
 void sisa8_init(sisa8_cpu_t *m);
-void sisa8_reset_reg(sisa8_cpu_t *m);
-void sisa8_reset_mem(sisa8_cpu_t *m);
 void sisa8_step(sisa8_cpu_t *m);
 void sisa8_simulate(sisa8_cpu_t *m);
 
