@@ -1,82 +1,90 @@
 ; Wesley's Hello World in a Custom CPU Assembly Language
 
-add r7, r0, 0x90
+_begin:
+
+xor x7, x7
+xor x8, x8
+add x7, x0, 0x9f
 
 ; store 'H'
-add r8, r0, 0x48
-stb r8, r7, 0
+add x8, x0, 0x48
+stb x8, x7, 0
 
 ; store 'e'
-xor r8, r8
-add r8, r0, 0x65
-stb r8, r7, 1
+xor x8, x8
+add x8, x0, 0x65
+stb x8, x7, 1
 
 ; store 'l'
-xor r8, r8
-add r8, r0, 0x6c
-stb r8, r7, 2
+xor x8, x8
+add x8, x0, 0x6c
+stb x8, x7, 2
 
 ; store 'l'
-xor r8, r8
-add r8, r0, 0x6c
-stb r8, r7, 3
+xor x8, x8
+add x8, x0, 0x6c
+stb x8, x7, 3
 
 ; store 'o'
-xor r8, r8
-add r8, r0, 0x6f
-stb r8, r7, 4
+xor x8, x8
+add x8, x0, 0x6f
+stb x8, x7, 4
 
 ; store ','
-xor r8, r8
-add r8, r0, 0x2c
-stb r8, r7, 5
+xor x8, x8
+add x8, x0, 0x2c
+stb x8, x7, 5
 
 ; store ' '
-xor r8, r8
-add r8, r0, 0x20
-stb r8, r7, 6
+xor x8, x8
+add x8, x0, 0x20
+stb x8, x7, 6
 
 ; store 'W'
-xor r8, r8
-add r8, r0, 0x57
-stb r8, r7, 7
+xor x8, x8
+add x8, x0, 0x57
+stb x8, x7, 7
 
 ; store 'o'
-xor r8, r8
-add r8, r0, 0x6f
-stb r8, r7, 8
+xor x8, x8
+add x8, x0, 0x6f
+stb x8, x7, 8
 
 ; store 'r'
-xor r8, r8
-add r8, r0, 0x72
-stb r8, r7, 9
+xor x8, x8
+add x8, x0, 0x72
+stb x8, x7, 9
 
 ; store 'l'
-xor r8, r8
-add r8, r0, 0x6c
-stb r8, r7, 10
+xor x8, x8
+add x8, x0, 0x6c
+stb x8, x7, 10
 
 ; store 'd'
-xor r8, r8
-add r8, r0, 0x64
-stb r8, r7, 11
+xor x8, x8
+add x8, x0, 0x64
+stb x8, x7, 11
 
 ; store '!'
-xor r8, r8
-add r8, r0, 0x21
-stb r8, r7, 12
+xor x8, x8
+add x8, x0, 0x21
+stb x8, x7, 12
 
 ; store '\n'
-xor r8, r8
-add r8, r0, 0x0a
-stb r8, r7, 13
+xor x8, x8
+add x8, x0, 0x0a
+stb x8, x7, 13
 
 ; store '\0'
-xor r8, r8
-add r8, r0, 0x00
-stb r8, r7, 14
+xor x8, x8
+add x8, x0, 0x00
+stb x8, x7, 14
 
 ; syscall 1
-add r1, r0, 0x90
-add r2, r0, 15
-sys r0, r0, 1
+xor x1, x1
+add x1, x0, 0x9f
+xor x2, x2
+add x2, x0, 15
+sys x0, x0, 1
+
+beq x0, x0, -165 ; labels not working yet

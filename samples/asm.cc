@@ -33,25 +33,24 @@ struct state_t {
 
 bool parse_line(state_t &state, char *str, std::optional<sisa_inst_t> &inst) {
   static const std::unordered_map<std::string_view, sisa_opcode_t> mnemonics = {
-      {"nop", SISA_DIV}, {"add", SISA_ADD}, {"sub", SISA_SUB},
-      {"and", SISA_AND}, {"orr", SISA_ORR}, {"xor", SISA_XOR},
-      {"shl", SISA_SHL}, {"shr", SISA_SHR}, {"sra", SISA_SRA},
-      {"ldb", SISA_LDB}, {"stb", SISA_STB}, {"ldw", SISA_LDW},
-      {"stw", SISA_STW}, {"beq", SISA_BEQ}, {"bne", SISA_BNE},
-      {"blt", SISA_BLT}, {"bgt", SISA_BGT}, {"ble", SISA_BLE},
-      {"bge", SISA_BGE}, {"fbe", SISA_FBE}, {"fbn", SISA_FBN},
-      {"fbl", SISA_FBL}, {"fbg", SISA_FBG}, {"fle", SISA_FLE},
-      {"fge", SISA_FGE}, {"jal", SISA_JAL}, {"ret", SISA_RET},
-      {"mul", SISA_MUL}, {"div", SISA_DIV}, {"sys", SISA_SYS},
-      {"ext", SISA_EXT}, {"ex2", SISA_EX2}};
+      {"add", SISA_ADD}, {"sub", SISA_SUB}, {"and", SISA_AND},
+      {"orr", SISA_ORR}, {"xor", SISA_XOR}, {"shl", SISA_SHL},
+      {"shr", SISA_SHR}, {"sra", SISA_SRA}, {"ldb", SISA_LDB},
+      {"stb", SISA_STB}, {"ldw", SISA_LDW}, {"stw", SISA_STW},
+      {"beq", SISA_BEQ}, {"bne", SISA_BNE}, {"blt", SISA_BLT},
+      {"bgt", SISA_BGT}, {"ble", SISA_BLE}, {"bge", SISA_BGE},
+      {"fbe", SISA_FBE}, {"fbn", SISA_FBN}, {"fbl", SISA_FBL},
+      {"fbg", SISA_FBG}, {"fle", SISA_FLE}, {"fge", SISA_FGE},
+      {"jal", SISA_JAL}, {"ret", SISA_RET}, {"sys", SISA_SYS},
+      {"ext", SISA_EXT}, {"cpu", SISA_CPU}, {"eif", SISA_EIF}};
 
   static const std::unordered_map<std::string_view, sisa_reg_t> regs = {
-      {"pc", SISA_PC},   {"r0", SISA_R0},   {"r1", SISA_R1},
-      {"r2", SISA_R2},   {"r3", SISA_R3},   {"r4", SISA_R4},
-      {"r5", SISA_R5},   {"r6", SISA_R6},   {"r7", SISA_R7},
-      {"r8", SISA_R8},   {"r9", SISA_R9},   {"r10", SISA_R10},
-      {"r11", SISA_R11}, {"r12", SISA_R12}, {"r13", SISA_R13},
-      {"key", SISA_KEY}};
+      {"pc", SISA_PC},   {"x0", SISA_X0},   {"x1", SISA_X1},
+      {"x2", SISA_X2},   {"x3", SISA_X3},   {"x4", SISA_X4},
+      {"x5", SISA_X5},   {"x6", SISA_X6},   {"x7", SISA_X7},
+      {"x8", SISA_X8},   {"x9", SISA_X9},   {"x10", SISA_X10},
+      {"x11", SISA_X11}, {"x12", SISA_X12}, {"x13", SISA_X13},
+      {"x15", SISA_X14}};
 
   static const std::regex op(
       R"(^\s*(\w+)(\s+(\w+)\s*(,\s*(\w+)\s*(,\s*(-?\w+))?)?)?\s*(;.+)?$)");
@@ -149,7 +148,7 @@ bool parse_line(state_t &state, char *str, std::optional<sisa_inst_t> &inst) {
     }
   }
 
-  inst = {mnemonics.at(mnemonic), regs.at(reg0), regs.at(reg1), imm};
+  inst = {.a = {mnemonics.at(mnemonic), regs.at(reg0), regs.at(reg1), imm}};
 
   return true;
 }
@@ -191,8 +190,8 @@ int main(int argc, char **argv) {
     row++;
 
     if (inst.has_value()) {
-      fwrite(&*inst, sizeof(*inst), 1, o);
-      state.offset += sizeof(*inst);
+      fwrite(&inst->a, sizeof(inst->a), 1, o);
+      state.offset += sizeof(inst->a);
     }
   }
 

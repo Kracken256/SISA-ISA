@@ -43,8 +43,8 @@ static void sisa8_syscall_halt(sisa8_cpu_t* cpu) {
 
 #define SISA_SYS_WRITE 0x01
 static void sisa8_syscall_write(sisa8_cpu_t* cpu) {
-  uint64_t addr = cpu->reg[SISA_R1];
-  uint64_t size = cpu->reg[SISA_R2];
+  uint64_t addr = cpu->reg[SISA_X1];
+  uint64_t size = cpu->reg[SISA_X2];
 
   fwrite(&cpu->mem.base[addr], 1, size, stdout);
 }
