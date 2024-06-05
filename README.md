@@ -15,37 +15,38 @@ Introducing a uniquely crafted, minimalist instruction set architecture (ISA) th
 ```c
 // sword_t is a signed word size integer type
 typedef enum sisa_opcode_t {
-  SISA_ADD = 1,  /* x[rd0] += x[rd1] + sext(imm) */
-  SISA_SUB = 2,  /* x[rd0] -= x[rd1] + sext(imm) */
-  SISA_AND = 3,  /* x[rd0] &= x[rd1] + sext(imm) */
-  SISA_ORR = 4,  /* x[rd0] |= x[rd1] + sext(imm) */
-  SISA_XOR = 5,  /* x[rd0] ^= x[rd1] + sext(imm) */
-  SISA_SHL = 6,  /* x[rd0] <<= x[rd1] + sext(imm) */
-  SISA_SHR = 7,  /* x[rd0] >>= x[rd1] + sext(imm) */
-  SISA_SRA = 8,  /* x[rd0] = (sword_t)x[rd0] >> (x[rd1] + sext(imm)) */
-  SISA_LDB = 9,  /* x[rd0] = cpu.mem[x[rd1] + sext(imm)] */
-  SISA_STB = 10, /* cpu.mem[x[rd1] + sext(imm)] = x[rd0] */
-  SISA_LDW = 11, /* x[rd0] = cpu.mem[x[rd1] + sext(imm)] */
-  SISA_STW = 12, /* cpu.mem[x[rd1] + sext(imm)] = x[rd0] */
-  SISA_BEQ = 13, /* if (x[rd0] == x[rd1]) x[PC] += sext(imm) */
-  SISA_BNE = 14, /* if (x[rd0] != x[rd1]) x[PC] += sext(imm) */
-  SISA_BLT = 15, /* if (x[rd0] < x[rd1]) x[PC] += sext(imm) */
-  SISA_BGT = 16, /* if (x[rd0] > x[rd1]) x[PC] += sext(imm) */
-  SISA_BLE = 17, /* if (x[rd0] <= x[rd1]) x[PC] += sext(imm) */
-  SISA_BGE = 18, /* if (x[rd0] >= x[rd1]) x[PC] += sext(imm) */
-  SISA_FBE = 19, /* if (x[rd0] == x[rd1]) x[PC] += x[R4] + sext(imm) */
-  SISA_FBN = 20, /* if (x[rd0] != x[rd1]) x[PC] += x[R4] + sext(imm) */
-  SISA_FBL = 21, /* if (x[rd0] < x[rd1]) x[PC] += x[R4] + sext(imm) */
-  SISA_FBG = 22, /* if (x[rd0] > x[rd1]) x[PC] += x[R4] + sext(imm) */
-  SISA_FLE = 23, /* if (x[rd0] <= x[rd1]) x[PC] += x[R4] + sext(imm) */
-  SISA_FGE = 24, /* if (x[rd0] >= x[rd1]) x[PC] += x[R4] + sext(imm) */
-  SISA_JAL = 25, /* x[rd0] = x[PC] + 3; x[PC] += x[rd1] + sext(imm) */
-  SISA_RET = 26, /* x[PC] = (x[rd0] * sext(imm)) + x[rd1] */
-  SISA_MUL = 27, /* x[rd0] *= x[rd1] + sext(imm) */
-  SISA_DIV = 28, /* x[rd0] /= x[rd1] + sext(imm) */
-  SISA_SYS = 29, /* if (x[rd0] == 0) cpu->tab[x[rd1] + sext(imm)](&cpu) */
-  SISA_EXT = 30, /* implementer-defined */
-  SISA_EX2 = 31, /* implementer-defined */
+  SISA_ADD, /* x[rd0] += x[rd1] + sext(imm) */
+  SISA_SUB, /* x[rd0] -= x[rd1] + sext(imm) */
+  SISA_AND, /* x[rd0] &= x[rd1] + sext(imm) */
+  SISA_ORR, /* x[rd0] |= x[rd1] + sext(imm) */
+  SISA_XOR, /* x[rd0] ^= x[rd1] + sext(imm) */
+  SISA_SHL, /* x[rd0] <<= x[rd1] + sext(imm) */
+  SISA_SHR, /* x[rd0] >>= x[rd1] + sext(imm) */
+  SISA_SRA, /* x[rd0] = (sword_t)x[rd0] >> (x[rd1] + sext(imm)) */
+  SISA_LDB, /* x[rd0] = cpu.mem[x[rd1] + sext(imm)] */
+  SISA_STB, /* cpu.mem[x[rd1] + sext(imm)] = x[rd0] */
+  SISA_LDW, /* x[rd0] = cpu.mem[x[rd1] + sext(imm)] */
+  SISA_STW, /* cpu.mem[x[rd1] + sext(imm)] = x[rd0] */
+  SISA_BEQ, /* if (x[rd0] == x[rd1]) x[PC] += sext(imm) */
+  SISA_BNE, /* if (x[rd0] != x[rd1]) x[PC] += sext(imm) */
+  SISA_BLT, /* if (x[rd0] < x[rd1]) x[PC] += sext(imm) */
+  SISA_BGT, /* if (x[rd0] > x[rd1]) x[PC] += sext(imm) */
+  SISA_BLE, /* if (x[rd0] <= x[rd1]) x[PC] += sext(imm) */
+  SISA_BGE, /* if (x[rd0] >= x[rd1]) x[PC] += sext(imm) */
+  SISA_FBE, /* if (x[rd0] == x[rd1]) x[PC] += x[R4] + sext(imm) */
+  SISA_FBN, /* if (x[rd0] != x[rd1]) x[PC] += x[R4] + sext(imm) */
+  SISA_FBL, /* if (x[rd0] < x[rd1]) x[PC] += x[R4] + sext(imm) */
+  SISA_FBG, /* if (x[rd0] > x[rd1]) x[PC] += x[R4] + sext(imm) */
+  SISA_FLE, /* if (x[rd0] <= x[rd1]) x[PC] += x[R4] + sext(imm) */
+  SISA_FGE, /* if (x[rd0] >= x[rd1]) x[PC] += x[R4] + sext(imm) */
+  SISA_JAL, /* x[rd0] = x[PC] + 3; x[PC] += x[rd1] + sext(imm) */
+  SISA_RET, /* x[PC] = (x[rd0] * sext(imm)) + x[rd1] */
+  SISA_SYS, /* if (x[rd0] == 0) cpu->tab[x[rd1] + sext(imm)](&cpu) */
+  SISA_EXT, /* implementer-defined */
+  SISA_CPU, /* see docs */
+  SISA_EIF, /* extended instruction format */
+  SISA_RES, /* reserved for future use; nop */
+  SISA_RE2, /* reserved for future use; nop */
 } sisa_opcode_t;
 ```
 ```c
